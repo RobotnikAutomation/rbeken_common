@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rbeken_navigation</name>
+  <version>0.0.0</version>
+  <description>The rbeken_navigation package</description>
+
+  <maintainer email="aarnal@robotnik.es">Alejandro Arnal</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>teb_local_planner</build_depend>
+  <build_depend>move_base</build_depend>
+
+  <exec_depend>teb_local_planner</exec_depend>
+  <exec_depend>move_base</exec_depend>
+
+
+  <export>
+
+  </export>
+</package>

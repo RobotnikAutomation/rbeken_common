@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg robot_id)_"/>
+ 
+  <!-- skid, omni, steel_skid, steel_omni, diffdrive,x_omni -->
+  <!-- diffdrive has been tested only in simulation -->
+  <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
+  <arg name="wheel_diameter" default="$(optenv ROBOT_WHEEL_DIAMETER 0.22)"/>
+  <arg name="ros_planar_move_plugin" default="false"/>
+  <arg name="sim" default="false"/>
+  
+  <!-- PTZ controller -->
+  <arg name="ptz_control" default="true"/>
+  <arg name="ptz_controllers" default="front_ptz_camera/joint_pan_position_controller front_ptz_camera/joint_tilt_position_controller"/> <!-- controllers can be listed seprated by a blank space -->
+  
+  <!-- Arm controllers -->
+  <arg name="arm_control" default="true"/>
+  <arg name="arm_controllers" default="arm/pos_traj_controller"/> <!-- controllers can be listed seprated by a blank space -->
+  
+  <!-- Gripper controllers-->
+  <arg name="gripper_control" default="true"/>
+  <arg name="gripper_controllers" default="gripper/gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
+  
+  <arg name="cmd_vel" default="robotnik_base_control/cmd_vel"/>
+  <arg name="launch_robot_localization" default="false"/>
+  <arg name="has_safety_module" default="false"/>
+
+  <!-- Robot - Load joint controller configurations from YAML file to parameter server -->
+  <group unless="$(arg sim)">	  
+    <rosparam file="$(find rbeken_control)/config/$(arg kinematics)_control.yaml" command="load" subst_value="true"/>
+    <param if="$(eval kinematics == 'x_omni')" name="robotnik_base_control/joint/aux_upper_base_joint/name" value="$(arg prefix)aux_upper_base_joint"/>
+    <param if="$(eval kinematics == 'x_omni')" name="robotnik_base_control/joint/upper_base_joint/name" value="$(arg prefix)upper_base_joint"/>
+    
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+      output="screen" args="
+        joint_read_state_controller
+        robotnik_base_control
+      ">
+    </node>
+     
+  </group>
+  
+  <!-- Simulation - Load joint controller configurations from YAML file to parameter server -->
+  <group if="$(arg sim)">
+    
+    <rosparam file="$(find rbeken_control)/config/$(arg kinematics)_control.yaml" command="load" subst_value="true"/>  
+
+    <node unless="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" args="	
+          robotnik_base_control
+          joint_read_state_controller 
+    ">
+    </node>
+
+    <node if="$(arg ros_planar_move_plugin)" name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" args="	
+          joint_read_state_controller 
+    ">
+    </node>	  
+
+    <group if="$(arg ptz_control)">
+      <node name="controller_spawner_ptz" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
+        $(arg ptz_controllers)
+      "/>
+    </group>
+
+    <group if="$(arg arm_control)">
+      <rosparam file="$(find rbeken_control)/config/ur_controllers.yaml" command="load" subst_value="true" ns="arm"/>
+      <node name="controller_spawner_arm" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
+        $(arg arm_controllers)
+      "/>
+    </group>
+
+    <group if="$(arg gripper_control)">
+      <rosparam file="$(find rbeken_control)/config/gripper_controllers.yaml" command="load" subst_value="true" ns="gripper"/>
+      <node name="controller_spawner_gripper" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
+        $(arg gripper_controllers)
+      "/>
+    </group>
+
+    
+    <!-- if robot_localization node is launched the controller must not publish the odom tf-->
+    <param if="$(arg launch_robot_localization)" name="robotnik_base_control/enable_odom_tf" value="false"/>	 
+      
+  </group>
+
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux">
+    <rosparam command="load" file="$(find rbeken_control)/config/twist_mux.yaml" />
+    <remap if="$(arg has_safety_module)" from="cmd_vel_out" to="twist_mux/cmd_vel" />
+    <remap unless="$(arg has_safety_module)" from="cmd_vel_out" to="$(arg cmd_vel)" />
+  </node>
+  <node pkg="twist_mux" type="twist_marker" name="twist_marker">
+    <remap from="twist"  to="$(arg cmd_vel)"/>
+    <remap from="marker" to="twist_marker"/>
+  </node>
+
+  
+</launch>
+
