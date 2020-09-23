@@ -140,7 +140,7 @@
             <origin xyz="${rear_laser_offset_x} ${rear_laser_offset_y} ${rear_laser_offset_z}" rpy="${rear_laser_offset_roll} 0 ${rear_laser_offset_yaw}"/>
         </xacro:sensor_sick_s300>
         
-        <xacro:sensor_axis_m5525 prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link">
+        <xacro:sensor_axis_m5525 prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link" prefix_topic="front_ptz_camera">
             <origin xyz="${front_ptz_camera_offset_x} ${front_ptz_camera_offset_y} ${front_ptz_camera_offset_z}" rpy="${front_ptz_camera_offset_roll} ${front_ptz_camera_offset_pitch} ${front_ptz_camera_offset_yaw}"/>
         </xacro:sensor_axis_m5525>
         

@@ -48,16 +48,14 @@ robotnik_base_control:
   in_motion_timer: 2.0
 
 
+front_ptz_camera:
+  joint_pan_position_controller:
+    type: position_controllers/JointPositionController
+    joint: $(arg prefix)front_ptz_camera_pan_joint
+  joint_tilt_position_controller:
+    type: position_controllers/JointPositionController
+    joint: $(arg prefix)front_ptz_camera_tilt_joint
 
-
-
-
-#joint_pan_position_controller:
-#  type: position_controllers/JointPositionController
-#  joint: joint_camera_pan
-#joint_tilt_position_controller:
-#  type: position_controllers/JointPositionController
-#  joint: joint_camera_tilt
 
 robotnik_base_control_diff:
   type        : "diff_drive_controller/DiffDriveController"
