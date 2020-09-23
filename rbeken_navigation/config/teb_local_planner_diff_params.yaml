@@ -1,8 +1,8 @@
 base_local_planner: teb_local_planner/TebLocalPlannerROS
 
 TebLocalPlannerROS:
-  odom_topic: odom
-  map_frame: map
+  odom_topic: $(arg odom_topic)
+  map_frame: $(arg global_frame)
 
   # Trajectory
 
@@ -23,7 +23,7 @@ TebLocalPlannerROS:
 
   # Robot
 
-  max_vel_x: 3
+  max_vel_x: 0.6 #1.2
   max_vel_x_backwards: 0.15
   max_vel_theta: 0.75
   max_vel_y: 0 # not used, is differential
@@ -47,13 +47,13 @@ TebLocalPlannerROS:
 
   # GoalTolerance
 
-  xy_goal_tolerance: 0.5
-  yaw_goal_tolerance: 0.5
+  xy_goal_tolerance: 0.1
+  yaw_goal_tolerance: 0.05
   free_goal_vel: False #False
 
   # Obstacles
 
-  min_obstacle_dist: 0.435 # minimum distance to obstacle: it depends on the footprint_model
+  min_obstacle_dist: 0.481 # minimum distance to obstacle: it depends on the footprint_model
   include_costmap_obstacles: True # use the local costmap
   costmap_obstacles_behind_robot_dist: 1.0 # distance at which obstacles behind the robot are taken into account
   obstacle_poses_affected: 30 # unused if legacy_obstacle_association is false
