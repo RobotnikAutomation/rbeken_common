@@ -1,38 +1,38 @@
 joint_blw_velocity_controller:
   type: velocity_controllers/JointVelocityController
-  joint: rbeken_back_left_wheel_joint
+  joint: $(arg prefix)back_left_wheel_joint
 joint_brw_velocity_controller:
   type: velocity_controllers/JointVelocityController
-  joint: rbeken_back_right_wheel_joint
+  joint: $(arg prefix)back_right_wheel_joint
 joint_frw_velocity_controller:
   type: velocity_controllers/JointVelocityController
-  joint: rbeken_front_right_wheel_joint
+  joint: $(arg prefix)front_right_wheel_joint
 joint_flw_velocity_controller:
   type: velocity_controllers/JointVelocityController
-  joint: rbeken_front_left_wheel_joint
+  joint: $(arg prefix)front_left_wheel_joint
 
   
 robotnik_base_control:
   type: rbeken_controller/RBEkenController
   joint:
     front_right_wheel_joint:
-      name: rbeken_front_right_wheel_joint
+      name: $(arg prefix)front_right_wheel_joint
       max_speed: 27.27 # rad/s
     front_left_wheel_joint:
-      name: rbeken_front_left_wheel_joint
+      name: $(arg prefix)front_left_wheel_joint
       max_speed: 27.27 # rad/s
     back_right_wheel_joint:
-      name: rbeken_back_right_wheel_joint
+      name: $(arg prefix)back_right_wheel_joint
       max_speed: 27.27 # rad/s
     back_left_wheel_joint:
-      name: rbeken_back_left_wheel_joint
+      name: $(arg prefix)back_left_wheel_joint
       max_speed: 27.27 # rad/s
   linear_speed_limit: 1.5 # m/s
   linear_acceleration_limit: 1.5 # m/s^2
   angular_speed_limit: 0.5 # rad/s
   angular_acceleration_limit: 1 # rad/s^2
-  odom_frame: rbeken_odom
-  robot_base_frame: rbeken_base_footprint
+  odom_frame: $(arg prefix)odom
+  robot_base_frame: $(arg prefix)base_footprint
   odom_broadcast_tf: true
   odom_topic: 'robotnik_base_control/odom'
   wheel_base: 0.59
@@ -59,8 +59,8 @@ front_ptz_camera:
 
 robotnik_base_control_diff:
   type        : "diff_drive_controller/DiffDriveController"
-  left_wheel  : ['rbeken_front_left_wheel_joint','rbeken_back_left_wheel_joint']
-  right_wheel : ['rbeken_front_right_wheel_joint','rbeken_back_right_wheel_joint']
+  left_wheel  : ['$(arg prefix)front_left_wheel_joint','$(arg prefix)back_left_wheel_joint']
+  right_wheel : ['$(arg prefix)front_right_wheel_joint','$(arg prefix)back_right_wheel_joint']
   publish_rate: 50.0
   pose_covariance_diagonal : [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
   twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
@@ -79,8 +79,8 @@ robotnik_base_control_diff:
   cmd_vel_timeout: 0.25
 
   # Base frame_id
-  base_frame_id: rbeken_base_footprint
-  odom_frame_id: rbeken_odom
+  base_frame_id: $(arg prefix)base_footprint
+  odom_frame_id: $(arg prefix)odom
   enable_odom_tf: true
 
   # Velocity and acceleration limits
