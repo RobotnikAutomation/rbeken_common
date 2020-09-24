@@ -14,7 +14,7 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <exec_depend>rbeken_control</exec_depend>
-  <exec_depend>rbeken_descritpion</exec_depend>
+  <exec_depend>rbeken_description</exec_depend>
   <exec_depend>rbeken_localization</exec_depend>
   <exec_depend>rbeken_navigation</exec_depend>
   <exec_depend>rbeken_pad</exec_depend>
