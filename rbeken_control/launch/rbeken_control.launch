@@ -7,6 +7,8 @@
   <!-- diffdrive has been tested only in simulation -->
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
   <arg name="wheel_diameter" default="$(optenv ROBOT_WHEEL_DIAMETER 0.22)"/>
+  <arg name="wheel_base" default="$(optenv ROBOT_WHEEL_BASE 0.52)"/>
+  <arg name="track_width" default="$(optenv ROBOT_TRACK_WIDTH 0.685)"/>
   <arg name="ros_planar_move_plugin" default="false"/>
   <arg name="sim" default="false"/>
   
