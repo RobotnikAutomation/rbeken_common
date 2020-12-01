@@ -1,10 +1,22 @@
 <?xml version="1.0"?>
 <launch>
-	<arg name="kinematics" default="$(optenv ROBOT_KINEMATICS skid)"/>
-	  <include file="$(find rbeken_navigation)/launch/move.launch">
-		  <arg if="$(eval kinematics == 'steel_omni')" name="differential" value="false"/>
-	  </include>
-	<include file="$(find rbeken_navigation)/launch/move_base.launch">
-		  <arg if="$(eval kinematics == 'steel_omni')" name="omni" value="true"/>
-	  </include>
+  <arg name="config_package" default="$(optenv ROBOT_NAVIGATION_CONFIG_PACKAGE rbeken_navigation)"/>
+  <arg name="config_folder" default="config"/>
+  <arg name="config_path" default="$(eval find(config_package) + '/' + config_folder)"/>
+
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="differential_robot" default="$(optenv ROBOT_DIFFERENTIAL_KINEMATICS false)"/>
+
+  <!-- Move arguments-->
+  <arg name="run_move" default="$(optenv ROBOT_RUN_MOVE true)"/>
+
+  <group ns="$(arg id_robot)">
+ 
+    <include if="$(arg run_move)" file="$(find rbeken_navigation)/launch/move.launch">
+      <arg name="config_path" value="$(arg config_path)"/>
+      <arg name="id_robot" value="$(arg id_robot)"/>
+      <arg name="differential_robot" value="$(arg differential_robot)"/>
+    </include>
+
+  </group>
 </launch>

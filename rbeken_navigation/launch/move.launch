@@ -1,30 +1,25 @@
 <?xml version="1.0"?>
 <launch>
-	<arg name="differential" default="false"/>
-    <node name="move" pkg="robotnik_move" type="move_node" respawn="false" output="screen">
-        <param name="robot_base_frame" type="string" value="rbeken_base_footprint" />
-        
-        <param name="fixed_frame" type="string" value="rbeken_odom" />
-        
-        <param name="gain_linear_velocity_x" value="0.5" />
-        <param name="gain_angular_velocity_z" value="2.0" />
-        
-        <param name="maximum_linear_velocity_x" value="0.4" />
-        <param name="maximum_angular_velocity_z" value="0.7" />
-        
-        <param name="threshold_linear_velocity_x" value="0.002" />
-        <param name="threshold_linear_velocity_y" value="0.002" />
-        <param name="threshold_angular_velocity_z" value="0.05" />
+  <arg name="config_package" default="$(optenv ROBOT_NAVIGATION_CONFIG_PACKAGE rbeken_navigation)"/>
+  <arg name="config_folder" default="config"/>
+  <arg name="config_path" default="$(eval find(config_package) + '/' + config_folder)"/>
 
-        <param name="initial_maximum_distance_x" value="2.5" />
-        <param name="initial_minimum_distance_x" value="0.1" />
+  <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg id_robot)_"/>
+  
+  <arg name="odom_frame" default="$(arg prefix)odom"/> 
+  <arg name="base_frame" default="$(arg prefix)base_footprint"/>
 
-        <param name="initial_maximum_arc" value="1" />
-        <param name="initial_maximum_yaw" value="1" />
-        
-        <param name="differential_robot" value="$(arg differential)" />
+  <arg name="has_safety_controller" default="false"/>
+  <arg name="cmd_vel_topic" default="move/cmd_vel"/>
+  <arg name="differential_robot" default="true"/>
+  
+  <node name="move" pkg="robotnik_move" type="move_node" respawn="false" output="screen">
+    <rosparam command="load" file="$(arg config_path)/move.yaml" subst_value="true"/>
+    
+    <remap unless="$(arg has_safety_controller)" from="cmd_vel" to="~cmd_vel" /> 
+    <remap if="$(arg has_safety_controller)" from="cmd_vel" to="~cmd_vel_unsafe" /> 
 
-        <remap from="cmd_vel" to="~cmd_vel"/>
-    </node>
+  </node>
+  
 </launch>
-
