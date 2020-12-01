@@ -7,6 +7,10 @@
   <arg name="id_robot" default="$(optenv ROBOT_ID robot)"/>
   <arg name="differential_robot" default="$(optenv ROBOT_DIFFERENTIAL_KINEMATICS false)"/>
 
+  <arg name="has_front_laser" default="$(optenv ROBOT_HAS_FRONT_LASER true)"/>
+  <arg name="has_rear_laser" default="$(optenv ROBOT_HAS_REAR_LASER true)"/>
+  <arg name="run_laser_filters" default="$(optenv ROBOT_RUN_LASER_FILTERS true)"/>
+
   <!-- Move arguments-->
   <arg name="run_move" default="$(optenv ROBOT_RUN_MOVE true)"/>
 
@@ -17,6 +21,23 @@
       <arg name="id_robot" value="$(arg id_robot)"/>
       <arg name="differential_robot" value="$(arg differential_robot)"/>
     </include>
+
+    <!-- Laser filters for navigation -->
+    <group if="$(arg run_laser_filters)">
+      <include if="$(arg has_front_laser)" file="$(find rbeken_navigation)/launch/scan_filter.launch">
+        <arg name="node_name" value="front_laser_scan_filter"/>
+        <arg name="input_scan" value="front_laser/scan"/>
+        <arg name="output_scan" value="front_laser/filtered_scan"/>
+        <arg name="config_file" value="scan_filter.yaml"/>
+      </include>
+
+      <include if="$(arg has_rear_laser)" file="$(find rbeken_navigation)/launch/scan_filter.launch">
+        <arg name="node_name" value="rear_laser_scan_filter"/>
+        <arg name="input_scan" value="rear_laser/scan"/>
+        <arg name="output_scan" value="rear_laser/filtered_scan"/>
+        <arg name="config_file" value="scan_filter.yaml"/>
+      </include>
+    </group>
 
   </group>
 </launch>
