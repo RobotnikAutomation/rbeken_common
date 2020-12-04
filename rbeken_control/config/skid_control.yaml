@@ -34,8 +34,8 @@ robotnik_base_control:
     back_left_wheel_joint:
       name: $(arg prefix)back_left_wheel_joint
       max_speed: 27.27 # rad/s
-  linear_speed_limit: 1.5 # m/s
-  linear_acceleration_limit: 3 # m/s^2
+  linear_speed_limit: 1.0 #1.5 # m/s
+  linear_acceleration_limit: 1.0 #3 # m/s^2
   angular_speed_limit: 0.5 # rad/s
   angular_acceleration_limit: 1 # rad/s^2
   odom_frame: $(arg prefix)odom
