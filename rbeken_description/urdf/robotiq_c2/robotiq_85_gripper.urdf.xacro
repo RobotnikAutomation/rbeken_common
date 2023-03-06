@@ -23,13 +23,13 @@
           <mesh filename="package://rbeken_description/meshes/robotiq_c2/collision/robotiq_85_base_link.stl"/>
         </geometry>
       </collision>
-      <inertial>
+      <intertial>
         <mass value="0.636951" />
         <origin xyz="0.0 0.0 0.0" />
         <inertia ixx = "0.000380" ixy = "0.000000" ixz = "0.000000"
              iyx = "0.000000" iyy = "0.001110" iyz = "0.000000"
              izx = "0.000000" izy = "0.000000" izz = "0.001171" />
-      </inertial>
+      </intertial>
     </link>
 
     <joint name="${prefix}left_knuckle_joint" type="continuous">
@@ -59,13 +59,13 @@
           <mesh filename="package://rbeken_description/meshes/robotiq_c2/collision/robotiq_85_knuckle_link.stl"/>
         </geometry>
       </collision>
-      <inertial>
+      <intertial>
         <mass value="0.018491" />
         <origin xyz="0.0 0.0 0.0" />
         <inertia ixx = "0.000009" ixy = "-0.000001" ixz = "0.000000"
              iyx = "-0.000001" iyy = "0.000001" iyz = "0.000000"
              izx = "0.000000" izy = "0.000000" izz = "0.000010" />
-      </inertial>
+      </intertial>
     </link> 
 
     <link name="${prefix}right_knuckle_link">
@@ -79,13 +79,13 @@
           <mesh filename="package://rbeken_description/meshes/robotiq_c2/collision/robotiq_85_knuckle_link.stl"/>
         </geometry>
       </collision>
-      <inertial>
+      <intertial>
         <mass value="0.018491" />
         <origin xyz="0.0 0.0 0.0" />
         <inertia ixx = "0.000009" ixy = "-0.000001" ixz = "0.000000"
              iyx = "-0.000001" iyy = "0.000001" iyz = "0.000000"
              izx = "0.000000" izy = "0.000000" izz = "0.000010" />
-      </inertial>
+      </intertial>
     </link>
 
     <joint name="${prefix}left_finger_joint" type="fixed">
@@ -111,13 +111,13 @@
           <mesh filename="package://rbeken_description/meshes/robotiq_c2/collision/robotiq_85_finger_link.stl"/>
         </geometry>
       </collision>
-      <inertial>
+      <intertial>
         <mass value="0.027309" />
         <origin xyz="0.0 0.0 0.0" />
         <inertia ixx = "0.000003" ixy = "-0.000002" ixz = "0.000000"
              iyx = "-0.000002" iyy = "0.000021" iyz = "0.000000"
              izx = "0.000000" izy = "0.000000" izz = "0.000020" />
-      </inertial>
+      </intertial>
     </link> 
 
     <link name="${prefix}right_finger_link">
@@ -131,13 +131,13 @@
           <mesh filename="package://rbeken_description/meshes/robotiq_c2/collision/robotiq_85_finger_link.stl"/>
         </geometry>
       </collision>
-      <inertial>
+      <intertial>
         <mass value="0.027309" />
         <origin xyz="0.0 0.0 0.0" />
         <inertia ixx = "0.000003" ixy = "-0.000002" ixz = "0.000000"
              iyx = "-0.000002" iyy = "0.000021" iyz = "0.000000"
              izx = "0.000000" izy = "0.000000" izz = "0.000020" />
-      </inertial>
+      </intertial>
     </link> 
 
     <joint name="${prefix}left_inner_knuckle_joint" type="continuous">
@@ -167,13 +167,13 @@
           <mesh filename="package://rbeken_description/meshes/robotiq_c2/collision/robotiq_85_inner_knuckle_link.stl"/>
         </geometry>
       </collision>
-      <inertial>
+      <intertial>
         <mass value="0.029951" />
         <origin xyz="0.0 0.0 0.0" />
         <inertia ixx = "0.000039" ixy = "0.000000" ixz = "0.000000"
              iyx = "0.000000" iyy = "0.000005" iyz = "0.000000"
              izx = "0.000000" izy = "0.000000" izz = "0.000035" />
-      </inertial>
+      </intertial>
     </link>
     <link name="${prefix}right_inner_knuckle_link">
       <visual>
@@ -186,13 +186,13 @@
           <mesh filename="package://rbeken_description/meshes/robotiq_c2/collision/robotiq_85_inner_knuckle_link.stl"/>
         </geometry>
       </collision>
-      <inertial>
+      <intertial>
         <mass value="0.029951" />
         <origin xyz="0.0 0.0 0.0" />
         <inertia ixx = "0.000039" ixy = "0.000000" ixz = "0.000000"
              iyx = "0.000000" iyy = "0.000005" iyz = "0.000000"
              izx = "0.000000" izy = "0.000000" izz = "0.000035" />
-      </inertial>
+      </intertial>
     </link>
 
     <joint name="${prefix}left_finger_tip_joint" type="continuous">
@@ -223,13 +223,13 @@
           <mesh filename="package://rbeken_description/meshes/robotiq_c2/collision/robotiq_85_finger_tip_link.stl"/>
         </geometry>
       </collision>
-      <inertial>
+      <intertial>
         <mass value="0.019555" />
         <origin xyz="0.0 0.0 0.0" />
         <inertia ixx = "0.000002" ixy = "0.000000" ixz = "0.000000"
              iyx = "0.000000" iyy = "0.000005" iyz = "0.000000"
              izx = "0.000000" izy = "0.000000" izz = "0.000006" />
-      </inertial>
+      </intertial>
     </link> 
 
     <link name="${prefix}right_finger_tip_link">
@@ -243,13 +243,13 @@
           <mesh filename="package://rbeken_description/meshes/robotiq_c2/collision/robotiq_85_finger_tip_link.stl"/>
         </geometry>
       </collision>
-      <inertial>
+      <intertial>
         <mass value="0.019555" />
         <origin xyz="0.0 0.0 0.0" />
         <inertia ixx = "0.000002" ixy = "0.000000" ixz = "0.000000"
              iyx = "0.000000" iyy = "0.000005" iyz = "0.000000"
              izx = "0.000000" izy = "0.000000" izz = "0.000006" />
-      </inertial>
+      </intertial>
     </link>
     
     <!-- Improve grasping physics -->

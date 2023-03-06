@@ -12,7 +12,7 @@
   <arg name="ros_planar_move_plugin" default="false"/>
   
   <!-- Load the URDF into ROS parameter server -->
-  <arg name="urdf_file" default="$(find xacro)/xacro '$(find rbeken_description)/robots/$(arg robot_model)' prefix:=$(arg prefix) use_gpu_for_simulation:=$(arg use_gpu_for_simulation) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) load_kinematics_file:=$(arg load_kinematics_file) --inorder" />
+  <arg name="urdf_file" default="$(find xacro)/xacro $(find rbeken_description)/robots/$(arg robot_model) prefix:=$(arg prefix) use_gpu_for_simulation:=$(arg use_gpu_for_simulation) ros_planar_move_plugin:=$(arg ros_planar_move_plugin) load_kinematics_file:=$(arg load_kinematics_file) --inorder" />
   <param name="robot_description" command="$(arg urdf_file)" />
 
   <!-- send fake joint values -->
