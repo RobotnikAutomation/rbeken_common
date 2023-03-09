@@ -25,7 +25,8 @@
 
     <!-- Include UR-10 ARM -->
     <!--xacro:include filename="$(find ur_description)/urdf/ur10.urdf.xacro" /-->  
-    
+    <xacro:include filename="$(find ur_description)/urdf/inc/ur10e_macro.xacro" />
+
     <!-- Include force sensor description -->
     <xacro:include filename="$(find rbeken_description)/urdf/robotiq_force_torque_sensor/robotiq_fts300.urdf.xacro" />
     
@@ -85,6 +86,13 @@
     <xacro:property name="gps_offset_x" value="-0.540"/>   
     <xacro:property name="gps_offset_y" value="0.0"/>    
     <xacro:property name="gps_offset_z" value="0.898"/>
+
+    <xacro:property name="arm_position_x" value="0.233"/>
+    <xacro:property name="arm_position_y" value="0"/>
+    <xacro:property name="arm_position_z" value="0.59250"/>
+    <xacro:property name="arm_orientation_r" value="0"/>
+    <xacro:property name="arm_orientation_p" value="0"/>
+    <xacro:property name="arm_orientation_y" value="0"/>
       
      <!-- Flag to select the high or low quality model -->
     <xacro:property name="hq" value="true" />
@@ -131,33 +139,33 @@
         </xacro:sensor_imu_hector>
         
         <!-- Structures -->
-        <xacro:laser_support prefix="$(arg prefix)front_laser_structure" parent="$(arg prefix)base_link">
+        <!--xacro:laser_support prefix="$(arg prefix)front_laser_structure" parent="$(arg prefix)base_link">
             <origin xyz="${front_laser_support_offset_x} ${front_laser_support_offset_y} ${front_laser_support_offset_z}" rpy="0 0 ${front_laser_support_offset_yaw}" />
-        </xacro:laser_support>
-        <xacro:laser_support prefix="$(arg prefix)rear_laser_structure" parent="$(arg prefix)base_link">
+        </xacro:laser_support-->
+        <!--xacro:laser_support prefix="$(arg prefix)rear_laser_structure" parent="$(arg prefix)base_link">
             <origin xyz="${rear_laser_support_offset_x} ${rear_laser_support_offset_y} ${rear_laser_support_offset_z}" rpy="0 0 ${rear_laser_support_offset_yaw}" />
-        </xacro:laser_support>
+        </xacro:laser_support-->
     
         <!-- SENSORS -->
-        <xacro:sensor_sick_s300 prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="${gpu}">
+        <!--xacro:sensor_sick_s300 prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="${gpu}">
             <origin xyz="${front_laser_offset_x} ${front_laser_offset_y} ${front_laser_offset_z}" rpy="${front_laser_offset_roll} ${front_laser_offset_pitch} ${front_laser_offset_yaw}"/>
-        </xacro:sensor_sick_s300>
+        </xacro:sensor_sick_s300-->
 
-        <xacro:sensor_sick_s300 prefix="$(arg prefix)rear_laser" parent="$(arg prefix)base_link" prefix_topic="rear_laser" gpu="${gpu}">
+        <!--xacro:sensor_sick_s300 prefix="$(arg prefix)rear_laser" parent="$(arg prefix)base_link" prefix_topic="rear_laser" gpu="${gpu}">
             <origin xyz="${rear_laser_offset_x} ${rear_laser_offset_y} ${rear_laser_offset_z}" rpy="${rear_laser_offset_roll} 0 ${rear_laser_offset_yaw}"/>
-        </xacro:sensor_sick_s300>
+        </xacro:sensor_sick_s300-->
         
-        <xacro:sensor_axis_m5525 prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link" prefix_topic="front_ptz_camera">
+        <!--xacro:sensor_axis_m5525 prefix="$(arg prefix)front_ptz_camera" parent="$(arg prefix)base_link" prefix_topic="front_ptz_camera">
             <origin xyz="${front_ptz_camera_offset_x} ${front_ptz_camera_offset_y} ${front_ptz_camera_offset_z}" rpy="${front_ptz_camera_offset_roll} ${front_ptz_camera_offset_pitch} ${front_ptz_camera_offset_yaw}"/>
-        </xacro:sensor_axis_m5525>
+        </xacro:sensor_axis_m5525-->
         
         <!-- GPS -->
-        <xacro:rbeken_gps_support prefix="$(arg prefix)gps_support" parent="$(arg prefix)base_link">
+        <!--xacro:rbeken_gps_support prefix="$(arg prefix)gps_support" parent="$(arg prefix)base_link">
             <origin xyz="${gps_offset_x} ${gps_offset_y} ${gps_offset_z}"/>
-        </xacro:rbeken_gps_support>
-        <xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
+        </xacro:rbeken_gps_support-->
+        <!--xacro:sensor_gps prefix="$(arg prefix)gps" parent="$(arg prefix)base_link">
             <origin xyz="${gps_offset_x} ${gps_offset_y} ${gps_offset_z}"/>
-        </xacro:sensor_gps>
+        </xacro:sensor_gps-->
 
         <!-- ROBOTIQ SENSOR -->
         <!--
@@ -187,23 +195,19 @@
                 <parent link="$(arg prefix)base_link" />
                 <child link="$(arg prefix)arm_base_link" />
             </joint>
-        </xacro:if>
+        </xacro:if-->
 
         
-        <! UR-10 ARM
-        <xacro:unless value="$(arg load_kinematics_file)">
-            <xacro:ur10_robot prefix="$(arg prefix)arm_" joint_limited="true"
-            shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
-            wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}">
-            </xacro:ur10_robot>
-        
-            <joint name="$(arg prefix)arm_base_joint" type="fixed">
-                <origin xyz="0.215 0 0.5885" rpy="0 0 3.14"/>
-                <parent link="$(arg prefix)base_link" />
-                <child link="$(arg prefix)arm_base_link" />
-            </joint>
-        </xacro:unless>
-        -->
+        <!-- UR-10e ARM -->
+        <!--xacro:ur10e_robot prefix="$(arg prefix)arm_">
+        </xacro:ur10e_robot>
+
+        <joint name="$(arg prefix)arm_base_joint" type="fixed">
+            <origin xyz="${arm_position_x} ${arm_position_y} ${arm_position_z}" rpy="${arm_orientation_r} ${arm_orientation_p} ${arm_orientation_y}"/>
+            <parent link="$(arg prefix)base_link" />
+            <child link="$(arg prefix)arm_base_link" />
+        </joint-->
+
     </xacro:macro>
     
     

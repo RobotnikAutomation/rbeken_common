@@ -33,10 +33,10 @@
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>     
 		<xacro:if value="${reflect}">
-			<mesh filename="package://rbeken_description/meshes/wheels/rbeken_rueda_goma.stl" />
+			<mesh filename="package://rbeken_description/meshes/wheels/rbeken_rubber_wheel_v2.stl" />
 		</xacro:if>
 		<xacro:unless value="${reflect}">
-			<mesh filename="package://rbeken_description/meshes/wheels/rbeken_rueda_goma.stl" />
+			<mesh filename="package://rbeken_description/meshes/wheels/rbeken_rubber_wheel_v2.stl" />
 		</xacro:unless>
           </geometry>         
         </xacro:if>

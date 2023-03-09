@@ -45,12 +45,12 @@
             <origin xyz="0 0 0" rpy="0 0 0" />
             <xacro:if value="${hq}">
             <geometry>
-                <mesh filename="package://rbeken_description/meshes/bases/rbeken_chasis.stl"/>
+                <mesh filename="package://rbeken_description/meshes/bases/rbeken_chasis_v2.stl"/>
             </geometry>
             </xacro:if>
             <xacro:unless value="${hq}">
             <geometry>
-                <mesh filename="package://rbeken_description/meshes/bases/rbeken_chasis.stl"/>
+                <mesh filename="package://rbeken_description/meshes/bases/rbeken_chasis_v2.stl"/>
             </geometry>
             </xacro:unless>
             <material name="darkgrey">
@@ -61,7 +61,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0 " />
             <geometry>
-                <mesh filename="package://rbeken_description/meshes/bases/rbeken_chasis.stl"/>
+                <mesh filename="package://rbeken_description/meshes/bases/rbeken_chasis_v2.stl"/>
             </geometry>
         </collision>     
     </link>
