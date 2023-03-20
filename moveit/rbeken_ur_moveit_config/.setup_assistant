@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: rbeken_description
+    relative_path: robots/rbeken_rubber.urdf.xacro
+    xacro_args: prefix:=robot_
+  SRDF:
+    relative_path: config/rbeken.srdf
+  CONFIG:
+    author_name: Carlos Llamas Martinez
+    author_email: cllamas@robotnik.es
+    generated_timestamp: 1679053217
